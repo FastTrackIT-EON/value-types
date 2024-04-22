@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ValueTypes
@@ -9,6 +11,36 @@ namespace ValueTypes
     internal class Program
     {
         static void Main(string[] args)
+        {
+            DateTime dateTime = DateTime.Now;
+
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("ro-RO");
+            Console.WriteLine("Date (ro-RO): " + dateTime.ToString());
+
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("en-US");
+            Console.WriteLine("Date (en-US): " + dateTime.ToString());
+
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("fa");
+            Console.WriteLine("Date (fa): " + dateTime.ToString());
+
+           
+
+            DateTime d1 = new DateTime(year: 2024, month: 4, day: 22);
+            DateTime d2 = d1 + TimeSpan.FromDays(2);
+            TimeSpan d3 = d2 - d1;
+
+            DateTime parseResult1 = DateTime.Parse(
+                "04/22/2024",
+                CultureInfo.CreateSpecificCulture("en-US"));
+            Console.WriteLine("Year: " + parseResult1.Year);
+            Console.WriteLine("Month: " + parseResult1.Month);
+            Console.WriteLine("Day: " + parseResult1.Day);
+
+            Console.WriteLine("Press any key to close");
+            Console.ReadKey();
+        }
+
+        static void Examples_with_floating_point_numbers()
         {
             // illustrate division by zero (with sign)
             // for float and double
@@ -18,13 +50,10 @@ namespace ValueTypes
             Console.WriteLine(c);
 
             // but decimal throws error
-            decimal x = 10;
+            decimal x = 10M;
             decimal y = 0;
             decimal z = x / y;
             Console.WriteLine(z);
-
-            Console.WriteLine("Press any key to close");
-            Console.ReadKey();
         }
 
         static void Examples_with_int()
