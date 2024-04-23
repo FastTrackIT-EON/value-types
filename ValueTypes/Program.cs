@@ -29,12 +29,25 @@ namespace ValueTypes
             DateTime d2 = d1 + TimeSpan.FromDays(2);
             TimeSpan d3 = d2 - d1;
 
-            DateTime parseResult1 = DateTime.Parse(
-                "04/22/2024",
-                CultureInfo.CreateSpecificCulture("en-US"));
-            Console.WriteLine("Year: " + parseResult1.Year);
-            Console.WriteLine("Month: " + parseResult1.Month);
-            Console.WriteLine("Day: " + parseResult1.Day);
+            DateTime parseResult1;
+            bool canParse = DateTime.TryParse(
+                "4/22/2024",
+                CultureInfo.CreateSpecificCulture("en-US"),
+                DateTimeStyles.None,
+                out parseResult1);
+
+            if (canParse)
+            {
+                Console.WriteLine("Year: " + parseResult1.Year);
+                Console.WriteLine("Month: " + parseResult1.Month);
+                Console.WriteLine("Day: " + parseResult1.Day);
+            }
+            else
+            {
+                Console.WriteLine("String is not a valid DateTime");
+            }
+
+            
 
             Console.WriteLine("Press any key to close");
             Console.ReadKey();
